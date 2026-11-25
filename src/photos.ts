@@ -1,25 +1,39 @@
-import hero from './assets/photos/accueil-hero.jpg';
+/**
+ * Photos réelles, libres de droits (licence Unsplash : usage commercial gratuit,
+ * sans attribution obligatoire). Aucune image générée par IA.
+ * Les crédits sont repris dans la page Mentions légales.
+ */
+import equipe from './assets/photos/equipe.jpg';
 import finance from './assets/photos/finance.jpg';
 import commerce from './assets/photos/commerce.jpg';
 import logistique from './assets/photos/logistique.jpg';
 import btp from './assets/photos/btp.jpg';
-import aPropos from './assets/photos/a-propos.jpg';
-import equipe from './assets/affiche/equipe.jpg';
-import icFinance from './assets/affiche/icone-finance.png';
-import icCommerce from './assets/affiche/icone-commerce.png';
-import icLogistique from './assets/affiche/icone-logistique.png';
-import icBtp from './assets/affiche/icone-btp.png';
+import chantier from './assets/photos/chantier.jpg';
 
-export const PHOTOS = { hero, aPropos, equipe, finance, commerce, logistique, btp };
+export const PHOTOS = { equipe, finance, commerce, logistique, btp, chantier };
 
-/** Illustrations des expertises, extraites de l'affiche ToJC */
-export const ICONS = { finance: icFinance, commerce: icCommerce, logistique: icLogistique, btp: icBtp };
+export const PHOTO_ALTS = {
+  finance: 'Homme d’affaires au téléphone, prenant des notes devant son ordinateur',
+  commerce: 'Porte-conteneurs chargé, au large de Port-Saïd',
+  logistique: 'Camions de marchandises sur une route nationale au Kenya',
+  btp: 'Ouvriers posant une charpente et une toiture en Ouganda',
+} as const;
 
 /** Diapositives du carrousel d'accueil (ordre d'affichage) */
 export const SLIDES = [
-  { src: equipe, alt: 'L’équipe ToJC devant un panorama urbain', position: '50% 30%' },
-  { src: hero, alt: 'Immeuble contemporain aux façades blanches', position: '70% 50%' },
-  { src: logistique, alt: 'Autoroute de nuit et flux de véhicules', position: '50% 60%' },
-  { src: commerce, alt: 'Vue aérienne d’un quartier d’affaires', position: '50% 50%' },
-  { src: btp, alt: 'Façade d’un immeuble contemporain', position: '50% 50%' },
+  { src: equipe, alt: 'Réunion d’équipe dans une salle de conférence à Lagos', position: '50-50' },
+  { src: commerce, alt: PHOTO_ALTS.commerce, position: '50-50' },
+  { src: logistique, alt: PHOTO_ALTS.logistique, position: '40-70' },
+  { src: btp, alt: PHOTO_ALTS.btp, position: '50-35' },
+  { src: finance, alt: PHOTO_ALTS.finance, position: '70-50' },
+];
+
+/** Crédits photographiques */
+export const CREDITS = [
+  { what: 'Réunion d’équipe, Lagos (Nigeria)', who: 'Ninthgrid', url: 'https://unsplash.com/photos/AekHsx1SxXQ' },
+  { what: 'Homme d’affaires', who: 'Vitaly Gariev', url: 'https://unsplash.com/photos/QqrzaNxK-94' },
+  { what: 'Porte-conteneurs, Port-Saïd (Égypte)', who: 'Mohammed Mosaad', url: 'https://unsplash.com/photos/6NXLGfpCuEM' },
+  { what: 'Camions sur la route (Kenya)', who: 'Sweder Breet', url: 'https://unsplash.com/photos/5k68xh2BS3g' },
+  { what: 'Chantier de toiture (Ouganda)', who: 'Mugabi Owen', url: 'https://unsplash.com/photos/qUOjMuKDkrM' },
+  { what: 'Chantier, Johannesburg (Afrique du Sud)', who: 'Mark Potterton', url: 'https://unsplash.com/photos/sNVkn3507Oo' },
 ];

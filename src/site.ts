@@ -36,7 +36,7 @@ export const EXPERTISES = [
     waSubject: 'Conseil stratégique & Finance',
     short: 'Ingénierie financière, levée de fonds et sécurisation des investissements.',
     long: 'Ingénierie financière, levée de fonds et sécurisation des investissements : nous donnons à vos projets une structure solide et des financements adaptés.',
-    alt: 'Tours d’affaires vues en contre-plongée',
+    alt: 'Homme d’affaires au téléphone, prenant des notes devant son ordinateur',
     services: [
       'Business plans et études de faisabilité',
       'Montage financier de projets',
@@ -50,7 +50,7 @@ export const EXPERTISES = [
     waSubject: 'Commerce international',
     short: 'Import-export, négoce et intermédiation commerciale globale.',
     long: 'Import-export, négoce et intermédiation commerciale globale : nous identifions les bons partenaires et sécurisons chaque transaction.',
-    alt: 'Vue aérienne d’un quartier d’affaires',
+    alt: 'Porte-conteneurs chargé, au large de Port-Saïd',
     services: [
       'Sourcing et sélection de fournisseurs',
       'Négociation et contrats (Incoterms)',
@@ -64,7 +64,7 @@ export const EXPERTISES = [
     waSubject: 'Transport & Logistique',
     short: 'Maîtrise et optimisation des flux de marchandises mondiaux.',
     long: 'Maîtrise et optimisation des flux de marchandises mondiaux, du port d’embarquement jusqu’à la destination finale, y compris vers les pays sans littoral.',
-    alt: 'Autoroute de nuit et flux de véhicules',
+    alt: 'Camions de marchandises sur une route nationale au Kenya',
     services: [
       'Fret maritime, aérien et routier',
       'Transit et formalités douanières',
@@ -78,7 +78,7 @@ export const EXPERTISES = [
     waSubject: 'BTP',
     short: 'Conception et réalisation d’infrastructures durables.',
     long: 'Conception et réalisation d’infrastructures durables, avec la rigueur d’un bâtisseur engagé.',
-    alt: 'Façade d’un immeuble contemporain',
+    alt: 'Ouvriers posant une charpente et une toiture en Ouganda',
     services: [
       'Études et conception',
       'Maîtrise d’œuvre et suivi de chantier',

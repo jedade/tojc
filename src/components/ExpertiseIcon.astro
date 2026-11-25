@@ -1,0 +1,41 @@
+---
+/** Pictogrammes des expertises — dessinés en SVG (marine + rouge), aucune image IA */
+interface Props { id: 'finance' | 'commerce' | 'logistique' | 'btp' }
+const { id } = Astro.props;
+---
+
+<svg class="xicon" viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {id === 'finance' && (
+    <>
+      <path d="M8 40h32" stroke="#1b2a6b" />
+      <path d="M12 40V30m8 10V24m8 16V27m8 13V18" stroke="#1b2a6b" />
+      <path d="M9 24l9-8 7 5 13-12" stroke="#c42a2f" />
+      <path d="M32 9h6v6" stroke="#c42a2f" />
+    </>
+  )}
+  {id === 'commerce' && (
+    <>
+      <path d="M6 32h36l-4 8H10l-4-8z" stroke="#1b2a6b" />
+      <path d="M12 32v-7h10v7m0-5h10v5M17 25v-5h10v7" stroke="#1b2a6b" />
+      <path d="M10 12h26m-5-5 5 5-5 5" stroke="#c42a2f" />
+    </>
+  )}
+  {id === 'logistique' && (
+    <>
+      <path d="M4 14h24v20H4zM28 21h8l6 6v7H28" stroke="#1b2a6b" />
+      <circle cx="12" cy="36" r="4" stroke="#c42a2f" />
+      <circle cx="34" cy="36" r="4" stroke="#c42a2f" />
+    </>
+  )}
+  {id === 'btp' && (
+    <>
+      <path d="M6 42h36" stroke="#1b2a6b" />
+      <path d="M10 42V20l10-6v28M20 22h8v20M28 42V10l10 5v27" stroke="#1b2a6b" />
+      <path d="M14 26h2m-2 6h2m16-12h2m-2 6h2m-2 6h2" stroke="#c42a2f" />
+    </>
+  )}
+</svg>
+
+<style>
+  .xicon { width: 100%; height: 100%; display: block; }
+</style>
