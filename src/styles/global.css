@@ -181,5 +181,6 @@ p { margin: 0; text-wrap: pretty; }
     animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }

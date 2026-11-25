@@ -83,6 +83,42 @@ if (!reduce && 'IntersectionObserver' in window) {
   });
 }
 
+/* ---------- Carrousel d'accueil : pause + accès direct à une image ---------- */
+const slider = document.querySelector<HTMLElement>('[data-slider]');
+if (slider) {
+  const step = Number(slider.dataset.duration) || 6;
+  const slides = [...slider.querySelectorAll<HTMLElement>('.slide')];
+  const cycle = step * slides.length;
+  const pauseBtn = slider.querySelector<HTMLButtonElement>('[data-slider-pause]');
+
+  pauseBtn?.addEventListener('click', () => {
+    const paused = slider.classList.toggle('is-paused');
+    pauseBtn.setAttribute('aria-pressed', String(paused));
+    pauseBtn.setAttribute('aria-label', paused ? 'Relancer le carrousel' : 'Mettre le carrousel en pause');
+  });
+
+  // Recale toutes les animations pour que l'image « index » démarre maintenant
+  const goTo = (index: number) => {
+    slides.forEach((slide, k) => {
+      // −1,2 s : l'image choisie démarre déjà entièrement visible (même en pause au survol)
+      const delay = `${k * step - index * step - cycle - 1.2}s`;
+      const dotFill = slider.querySelector<HTMLElement>(`.dot.s${k} span`);
+      for (const el of [slide, slide.querySelector('img'), dotFill]) {
+        if (!el) continue;
+        const e = el as HTMLElement;
+        e.style.animationName = 'none';
+        void e.offsetWidth; // force le redémarrage de l'animation
+        e.style.animationName = '';
+        e.style.animationDelay = delay;
+      }
+      slide.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    });
+  };
+  slider.querySelectorAll<HTMLButtonElement>('[data-slide-to]').forEach((btn) =>
+    btn.addEventListener('click', () => goTo(Number(btn.dataset.slideTo))),
+  );
+}
+
 /* ---------- Sommaire : section active (page Expertises) ---------- */
 const toc = document.querySelector<HTMLElement>('[data-toc]');
 if (toc && 'IntersectionObserver' in window) {
