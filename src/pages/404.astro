@@ -1,0 +1,20 @@
+---
+import { u } from '../site';
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page introuvable" noindex>
+  <section class="wrap nf">
+    <p class="code enter enter-1">404</p>
+    <h1 class="h1 enter enter-2">Cette page n’existe pas — ou n’est pas encore construite.</h1>
+    <div class="enter enter-3">
+      <a class="btn btn-solid" href={u("/")}>Retour à l’accueil</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-block: 80px 120px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  .code { font-size: 14px; font-weight: 700; letter-spacing: 0.2em; color: var(--red); }
+  h1 { max-width: 720px; }
+</style>

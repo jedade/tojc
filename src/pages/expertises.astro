@@ -1,0 +1,112 @@
+---
+import { u } from '../site';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { EXPERTISES, wa } from '../site';
+import { PHOTOS } from '../photos';
+---
+
+<Base title="Nos expertises" active="expertises" description="Conseil stratégique et finance, commerce international, transport et logistique, BTP : les quatre expertises de ToJC.">
+  <div class="wrap crumbs">
+    <a href={u("/")}>Accueil</a><span aria-hidden="true">›</span><span aria-current="page">Nos expertises</span>
+  </div>
+
+  <section class="wrap intro">
+    <h1 class="h1 enter enter-1">Nos expertises</h1>
+    <p class="lead enter enter-2">
+      Quatre domaines complémentaires et un interlocuteur unique pour financer, approvisionner,
+      acheminer et construire.
+    </p>
+  </section>
+
+  <div class="wrap layout">
+    <nav class="toc enter enter-3" aria-label="Sommaire" data-toc>
+      <span class="toc-title">Sommaire</span>
+      <span class="toc-indicator" data-toc-indicator aria-hidden="true"></span>
+      {EXPERTISES.map((e) => <a href={`#${e.id}`}>{e.title}</a>)}
+    </nav>
+
+    <div class="articles">
+      {EXPERTISES.map((e, i) => (
+        <article id={e.id} class:list={['article', { first: i === 0 }]} data-line={i > 0 ? '' : undefined}>
+          <div class="media" data-reveal="image">
+            <Image src={PHOTOS[e.id]} alt={e.alt} widths={[600, 1000]} sizes="(min-width: 1200px) 800px, 100vw" />
+          </div>
+          <div class="content" data-stagger="90">
+            <h2 class="h2" data-reveal>{e.title}</h2>
+            <p class="text" data-reveal>{e.long}</p>
+            <h3 data-reveal>Prestations</h3>
+            <ul data-reveal>
+              {e.services.map((s) => <li>{s}</li>)}
+            </ul>
+            <a class="btn btn-outline small" href={wa(e.waSubject)} target="_blank" rel="noopener noreferrer" data-reveal>
+              Nous écrire à ce sujet sur WhatsApp
+              <span class="sr-only">(nouvel onglet)</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .intro { padding-block: 32px 48px; display: flex; flex-direction: column; gap: 16px; }
+  .intro .lead { max-width: 760px; }
+  .layout { padding-bottom: 80px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px 64px; }
+
+  /* ---------- Sommaire avec indicateur animé ---------- */
+  .toc {
+    flex: 1 1 240px;
+    position: sticky;
+    top: 16px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--line);
+    font-size: 15px;
+    background: var(--white);
+    z-index: 2;
+  }
+  .toc-title { padding: 0 0 12px 16px; font-weight: 700; }
+  .toc a { padding: 8px 16px; color: var(--ink); transition: color 0.25s, padding-left 0.35s var(--ease-out); }
+  .toc a:hover { color: var(--navy); padding-left: 22px; }
+  .toc a.is-active { color: var(--navy); font-weight: 600; }
+  .toc-indicator {
+    position: absolute;
+    left: -2px;
+    top: 0;
+    width: 3px;
+    height: 0;
+    background: var(--navy);
+    transition: transform 0.5s var(--ease-out), height 0.5s var(--ease-out);
+  }
+
+  .articles { flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 64px; }
+  .article { display: flex; flex-direction: column; gap: 20px; padding-top: 48px; border-top: 1px solid var(--line); }
+  .article.first { padding-top: 0; border-top: 0; }
+  .media { height: 300px; overflow: hidden; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .content { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .text { font-size: 17px; line-height: 1.7; color: var(--text); }
+  h3 { margin-top: 8px; font-size: 16px; font-weight: 700; }
+  ul { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.9; color: var(--text); }
+  li::marker { color: var(--red); }
+  .small { min-height: 44px; padding: 0 20px; font-size: 15px; }
+
+  @media (max-width: 899px) {
+    /* Sur mobile, le sommaire devient une barre horizontale fixe */
+    .toc {
+      flex-basis: 100%;
+      flex-direction: row;
+      overflow-x: auto;
+      top: 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: none;
+    }
+    .toc-title, .toc-indicator { display: none; }
+    .toc a { flex: none; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .toc a:hover { padding-left: 16px; }
+    .toc a.is-active { border-bottom-color: var(--navy); }
+  }
+</style>

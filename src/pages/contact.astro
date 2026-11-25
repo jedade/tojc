@@ -1,0 +1,109 @@
+---
+import { u } from '../site';
+import Base from '../layouts/Base.astro';
+import WhatsAppIcon from '../components/WhatsAppIcon.astro';
+import { SITE, EXPERTISES, wa } from '../site';
+const c = SITE.contact;
+const subjects = [
+  ...EXPERTISES.map((e) => ({ label: e.title, href: wa(e.waSubject) })),
+  { label: 'Autre demande', href: wa() },
+];
+---
+
+<Base title="Contact" active="contact" description="Contactez ToJC sur WhatsApp : votre message est transmis directement à la direction.">
+  <div class="wrap crumbs">
+    <a href={u("/")}>Accueil</a><span aria-hidden="true">›</span><span aria-current="page">Contact</span>
+  </div>
+
+  <section class="wrap intro">
+    <h1 class="h1 enter enter-1">Nous contacter</h1>
+    <p class="lead enter enter-2">
+      Le moyen le plus rapide de nous joindre est WhatsApp. Choisissez le sujet de votre demande&nbsp;:
+      un message pré-rempli s’ouvrira, vous n’aurez plus qu’à le compléter.
+    </p>
+  </section>
+
+  <section class="wrap layout">
+    <div class="box enter enter-3">
+      <h2>Quel est l’objet de votre demande&nbsp;?</h2>
+      <div class="subjects">
+        {subjects.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer">
+            <span>{s.label}</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="sr-only">(WhatsApp, nouvel onglet)</span>
+          </a>
+        ))}
+      </div>
+      <a class="btn btn-solid open" href={wa()} target="_blank" rel="noopener noreferrer">
+        <WhatsAppIcon />
+        Ouvrir WhatsApp
+      </a>
+    </div>
+
+    <div class="details enter enter-4">
+      <h2>Coordonnées</h2>
+      <table class="info">
+        <tbody>
+          <tr><th scope="row">Interlocuteur</th><td>{c.name}, {c.role}</td></tr>
+          <tr><th scope="row">WhatsApp</th><td><a href={c.whatsapp} target="_blank" rel="noopener noreferrer">{c.phoneDisplay}</a></td></tr>
+          <tr><th scope="row">Téléphone</th><td><a href={c.phoneHref}>{c.phoneDisplay}</a></td></tr>
+          {c.email && <tr><th scope="row">E-mail</th><td><a href={`mailto:${c.email}`}>{c.email}</a></td></tr>}
+          {c.address && <tr><th scope="row">Adresse</th><td>{c.address}</td></tr>}
+          {c.hours && <tr><th scope="row">Horaires</th><td>{c.hours}</td></tr>}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-block: 32px 40px; display: flex; flex-direction: column; gap: 16px; }
+  .intro .lead { max-width: 760px; }
+  .layout { padding-bottom: 80px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px 64px; }
+  h2 { font-size: 22px; line-height: 1.3; font-weight: 700; }
+
+  .box { flex: 999 1 560px; min-width: 0; border: 1px solid var(--line); padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+  .subjects { display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
+  .subjects a {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 56px;
+    border-top: 1px solid var(--line);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+    transition: padding 0.4s var(--ease-out), color 0.3s;
+  }
+  /* Fond qui se déploie au survol */
+  .subjects a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--soft);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .subjects a { isolation: isolate; }
+  .subjects a:hover, .subjects a:focus-visible { padding-inline: 12px; }
+  .subjects a:hover::before, .subjects a:focus-visible::before { transform: scaleY(1); }
+  .arrow { transition: transform 0.4s var(--ease-out), color 0.3s; }
+  .subjects a:hover .arrow { transform: translateX(6px); color: var(--red); }
+
+  /* Animation d'apparition des sujets, en cascade */
+  .subjects a { animation: rise 0.7s var(--ease-out) both; }
+  .subjects a:nth-child(1) { animation-delay: 0.45s; }
+  .subjects a:nth-child(2) { animation-delay: 0.53s; }
+  .subjects a:nth-child(3) { animation-delay: 0.61s; }
+  .subjects a:nth-child(4) { animation-delay: 0.69s; }
+  .subjects a:nth-child(5) { animation-delay: 0.77s; }
+
+  .open { align-self: flex-start; }
+  .details { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+</style>

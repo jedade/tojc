@@ -1,0 +1,114 @@
+---
+import { u } from '../site';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-tojc.png';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+import { SITE, wa } from '../site';
+
+interface Props { active?: string }
+const { active } = Astro.props;
+
+const items = [
+  { key: 'accueil', label: 'Accueil', href: '/' },
+  { key: 'expertises', label: 'Nos expertises', href: '/expertises' },
+  { key: 'apropos', label: 'Qui sommes-nous', href: '/qui-sommes-nous' },
+  { key: 'contact', label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="header" data-header>
+  <div class="stripe" aria-hidden="true"><span></span><span></span></div>
+  <div class="wrap top">
+    <a class="brand" href={u("/")}>
+      <Image src={logo} alt="ToJC" width={130} loading="eager" />
+      <span class="brand-text">
+        <span class="brand-name">{SITE.shortName}</span>
+        <span class="brand-sub">Conseil · Finance · Commerce · Logistique · BTP</span>
+      </span>
+    </a>
+    <a class="btn btn-outline phone" href={wa()} target="_blank" rel="noopener noreferrer">
+      <WhatsAppIcon />
+      {SITE.contact.phoneDisplay}
+      <span class="sr-only">(WhatsApp, nouvel onglet)</span>
+    </a>
+  </div>
+  <div class="navbar">
+    <nav class="wrap nav" aria-label="Navigation principale">
+      {items.map((i) => (
+        <a href={u(i.href)} class:list={{ 'is-active': i.key === active }} aria-current={i.key === active ? 'page' : undefined}>
+          {i.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: var(--white);
+    box-shadow: 0 1px 0 var(--line);
+    position: relative;
+    z-index: 20;
+    view-transition-name: site-header;
+    transition: box-shadow 0.3s;
+  }
+  .stripe { height: 4px; display: flex; }
+  .stripe span { transform-origin: left; animation: grow-x 1s var(--ease-in-out) both; }
+  .stripe span:first-child { flex: 3; background: var(--navy); }
+  .stripe span:last-child { flex: 1; background: var(--red); animation-delay: 0.35s; }
+
+  .top {
+    padding-block: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+  }
+  .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--ink); }
+  .brand img { height: 56px; width: auto; transition: transform 0.6s var(--ease-out); }
+  .brand:hover img { transform: rotate(-6deg) scale(1.04); }
+  .brand-text { display: flex; flex-direction: column; gap: 2px; }
+  .brand-name { font-weight: 700; font-size: 18px; line-height: 1.2; }
+  .brand-sub { font-size: 14px; color: var(--muted); }
+  .phone { min-height: 40px; padding: 0 16px; font-size: 14px; gap: 8px; }
+  .phone :global(svg) { width: 16px; height: 16px; }
+
+  .navbar { border-top: 1px solid var(--line); }
+  .nav { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav a {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 16px;
+    font-size: 15px;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.25s;
+  }
+  /* Soulignement animé */
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 0;
+    height: 2px;
+    background: var(--navy);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .nav a:hover { color: var(--navy); }
+  .nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav a.is-active { color: var(--navy); font-weight: 600; }
+  .nav a.is-active::after { transform: scaleX(1); }
+
+  @media (max-width: 560px) {
+    .brand-sub { display: none; }
+    .brand img { height: 48px; }
+  }
+</style>

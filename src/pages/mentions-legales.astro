@@ -1,0 +1,51 @@
+---
+import { u } from '../site';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+const c = SITE.contact;
+---
+
+<Base title="Mentions légales" description="Mentions légales et politique de données personnelles de ToJC.">
+  <div class="wrap crumbs">
+    <a href={u("/")}>Accueil</a><span aria-hidden="true">›</span><span aria-current="page">Mentions légales</span>
+  </div>
+  <section class="wrap legal">
+    <h1 class="h1 enter enter-1">Mentions légales</h1>
+
+    <div class="enter enter-2">
+      <h2>Éditeur du site</h2>
+      <p>
+        {SITE.name}<br />
+        Directeur de la publication : {c.name}, {c.role}<br />
+        Téléphone / WhatsApp : <a href={c.phoneHref}>{c.phoneDisplay}</a><br />
+        <!-- TODO : compléter dans src/site.ts -->
+        Adresse du siège : {c.address || 'à compléter'}<br />
+        Immatriculation : à compléter
+      </p>
+
+      <h2>Hébergement</h2>
+      <p>Nom, adresse et contact de l’hébergeur : à compléter.</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L’ensemble des contenus de ce site (textes, logo, éléments graphiques) est la propriété de
+        {' '}{SITE.name}. Toute reproduction sans autorisation préalable est interdite.
+      </p>
+
+      <h2 id="donnees">Données personnelles</h2>
+      <p>
+        Ce site ne collecte aucune donnée personnelle : il ne comporte ni formulaire, ni cookie, ni
+        outil de mesure d’audience, ni ressource tierce. Les échanges par téléphone ou WhatsApp
+        relèvent des conditions de ces services.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { padding-block: 32px 80px; }
+  .legal > div { max-width: 760px; }
+  h2 { margin-top: 40px; font-size: 20px; color: var(--navy); }
+  p { margin-top: 12px; color: var(--text); }
+  a { color: var(--navy); }
+</style>

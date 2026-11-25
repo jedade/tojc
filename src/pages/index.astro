@@ -1,0 +1,225 @@
+---
+import { u } from '../site';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import WhatsAppIcon from '../components/WhatsAppIcon.astro';
+import { SITE, EXPERTISES, PILLARS, wa } from '../site';
+import { PHOTOS } from '../photos';
+---
+
+<Base active="accueil">
+  <!-- INTRODUCTION -->
+  <section class="wrap hero">
+    <div class="hero-copy">
+      <h1 class="h1 enter enter-1">
+        Nous ne nous contentons pas de conseiller&nbsp;: <span class="accent">nous bâtissons.</span>
+      </h1>
+      <p class="lead enter enter-2">
+        ToJC accompagne entreprises, investisseurs et porteurs de projets, de la structuration
+        financière jusqu’à la réalisation des ouvrages.
+      </p>
+      <div class="actions enter enter-3">
+        <a class="btn btn-solid" href={wa()} target="_blank" rel="noopener noreferrer">
+          <WhatsAppIcon />
+          Nous contacter sur WhatsApp
+        </a>
+        <a class="btn btn-outline" href={u("/expertises")}>Nos expertises</a>
+      </div>
+    </div>
+    <div class="hero-media unveil">
+      <Image
+        src={PHOTOS.hero}
+        alt="Immeuble contemporain aux façades blanches"
+        widths={[600, 900, 1200, 1600]}
+        sizes="(min-width: 1024px) 560px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="hero-tag" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <!-- EXPERTISES -->
+  <section class="band">
+    <div class="wrap block">
+      <div class="block-head" data-reveal>
+        <h2 class="h2">Nos domaines d’expertise</h2>
+        <a class="link" href={u("/expertises")}>Voir le détail des expertises</a>
+      </div>
+      <div class="cards" data-stagger="110">
+        {EXPERTISES.map((e) => (
+          <a class="card" href={u(`/expertises#${e.id}`)} data-reveal>
+            <span class="card-media">
+              <Image src={PHOTOS[e.id]} alt={e.alt} widths={[400, 640]} sizes="(min-width: 1200px) 280px, (min-width: 640px) 45vw, 100vw" />
+            </span>
+            <span class="card-body">
+              <span class="card-title">{e.title}</span>
+              <span class="card-text">{e.short}</span>
+              <span class="card-arrow" aria-hidden="true">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHIE -->
+  <section class="wrap block">
+    <div class="head-col" data-reveal>
+      <h2 class="h2">Notre philosophie&nbsp;: toujours œuvrer en Juste Constructeur</h2>
+      <p class="body">Notre nom est le reflet de notre engagement envers l’intégrité et l’excellence opérationnelle.</p>
+    </div>
+    <div class="pillars" data-stagger="140">
+      {PILLARS.map((p) => (
+        <div class="pillar" data-line data-reveal>
+          <h3><span class="pillar-letters" aria-hidden="true">{p.letters}</span>{p.title}</h3>
+          <p>{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ZONE D'INTERVENTION -->
+  <section class="zone" data-line>
+    <div class="wrap zone-inner">
+      <div class="zone-copy" data-reveal>
+        <h2 class="h2">Entre les Émirats arabes unis et l’Afrique de l’Ouest</h2>
+        <p class="body">
+          Société de zone franche des Émirats arabes unis, ToJC accompagne les échanges et les projets à
+          destination de l’Afrique de l’Ouest, y compris des pays sans littoral approvisionnés par les
+          ports de Lomé, Abidjan, Tema et Cotonou.
+        </p>
+        <a class="link" href={u("/qui-sommes-nous")}>En savoir plus sur le cabinet</a>
+      </div>
+      <div class="stat" data-reveal="scale">
+        <span class="stat-num" data-count="98" data-suffix="&nbsp;%">98&nbsp;%</span>
+        <p>des marchandises importées par le Burkina Faso arrivent par la mer, puis par la route via quatre corridors portuaires.</p>
+        <span class="stat-src">Source : Conseil Burkinabè des Chargeurs (Logistics Cluster)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="cta">
+    <div class="wrap cta-inner">
+      <div class="cta-copy" data-reveal>
+        <h2>Un projet à nous présenter&nbsp;?</h2>
+        <p>Écrivez-nous sur WhatsApp, votre message est transmis directement à la direction.</p>
+      </div>
+      <a class="btn btn-white" href={wa()} target="_blank" rel="noopener noreferrer" data-reveal>
+        <WhatsAppIcon />
+        {SITE.contact.phoneDisplay}
+        <span class="sr-only">(WhatsApp, nouvel onglet)</span>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Introduction ---------- */
+  .hero {
+    padding-block: 64px 72px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px 64px;
+  }
+  .hero-copy { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  .accent { color: var(--navy); }
+  .actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
+  .hero-media { position: relative; flex: 1 1 460px; min-width: 0; height: 400px; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  /* Petit repère rouge qui glisse sous l'image */
+  .hero-tag {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 96px;
+    height: 6px;
+    background: var(--red);
+    transform-origin: left;
+    animation: grow-x 0.8s var(--ease-out) 1.2s both;
+  }
+
+  /* ---------- Blocs ---------- */
+  .band { background: var(--soft); }
+  .block { padding-block: 72px; display: flex; flex-direction: column; gap: 32px; }
+  .block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 24px; }
+  .head-col { display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+
+  /* ---------- Cartes expertises ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 24px; }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), opacity 0.8s var(--ease-out);
+    transition-delay: var(--delay, 0s);
+  }
+  /* Filet bas : marine, se remplit de rouge au survol */
+  .card::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red) 50%, var(--navy) 50%) right / 200% 100% no-repeat;
+    transition: background-position 0.5s var(--ease-out);
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -18px rgb(27 42 107 / 0.35); }
+  .card:hover::after { background-position: left; }
+  .card-media { overflow: hidden; aspect-ratio: 16 / 10; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+  .card:hover .card-media img { transform: scale(1.07); }
+  .card-body { display: flex; flex-direction: column; gap: 10px; padding: 24px; flex: 1; }
+  .card-title { font-size: 19px; font-weight: 700; line-height: 1.3; color: var(--navy); }
+  .card-text { font-size: 15px; line-height: 1.6; color: var(--text); }
+  .card-arrow {
+    margin-top: auto;
+    padding-top: 8px;
+    align-self: flex-end;
+    color: var(--navy);
+    font-size: 18px;
+    transition: transform 0.4s var(--ease-out), color 0.3s;
+  }
+  .card:hover .card-arrow { transform: translateX(6px); color: var(--red); }
+
+  /* ---------- Philosophie ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 24px 48px; }
+  .pillar { display: flex; flex-direction: column; gap: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .pillar h3 { font-size: 18px; font-weight: 700; display: flex; align-items: baseline; gap: 10px; }
+  .pillar-letters { font-size: 26px; color: var(--navy); line-height: 1; }
+  .pillar:nth-child(2) .pillar-letters { color: var(--red); }
+  .pillar p { font-size: 16px; line-height: 1.6; color: var(--text); }
+
+  /* ---------- Zone ---------- */
+  .zone { border-top: 1px solid var(--line); }
+  .zone-inner { padding-block: 72px; display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-start; }
+  .zone-copy { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .stat { flex: 1 1 320px; min-width: 0; padding: 24px; background: var(--soft); display: flex; flex-direction: column; gap: 8px; border-left: 3px solid var(--red); }
+  .stat-num { font-size: 40px; font-weight: 700; line-height: 1.1; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .stat p { font-size: 15px; color: var(--text); }
+  .stat-src { font-size: 13px; color: var(--muted); }
+
+  /* ---------- Contact ---------- */
+  .cta { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+  /* Reflet lent qui traverse le bandeau */
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.07) 50%, transparent 60%);
+    transform: translateX(-100%);
+    animation: sheen 7s var(--ease-in-out) 1s infinite;
+  }
+  @keyframes sheen { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  .cta-inner { position: relative; padding-block: 56px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px 48px; }
+  .cta-copy { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .cta h2 { font-size: 26px; line-height: 1.3; font-weight: 700; }
+  .cta p { font-size: 17px; color: var(--on-navy); }
+</style>
